@@ -9,6 +9,7 @@
 		"@types/bun": "latest"
 	},
 	"scripts": {
+		"compile": "bun run ./scripts/compile.ts",
 		"dev": "bun run --watch ./index.ts",
 		"playground": "bun run --watch ./playground.ts",
 		"lint": "biome check --fix"

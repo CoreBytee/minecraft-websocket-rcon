@@ -21,6 +21,8 @@ if (!RCON_HOST) throw new Error("RCON_HOST is not set");
 if (!RCON_PORT) throw new Error("RCON_PORT is not set");
 if (!RCON_PASS) throw new Error("RCON_PASS is not set");
 
+console.info(`Starting server on localhost:${SERVER_PORT}`);
+
 Bun.serve({
 	port: SERVER_PORT,
 	routes: {
@@ -30,6 +32,9 @@ Bun.serve({
 			const password = query.get("password");
 			if (password !== RCON_PASS)
 				return new Response("Unauthorized", { status: 401 });
+
+			console.info("Authorized request");
+			console.info("Connecting to rcon");
 
 			const rcon = await Rcon.connect({
 				host: RCON_HOST,
@@ -49,6 +54,7 @@ Bun.serve({
 
 		open: (ws) => {
 			ws.data.rcon.on("end", () => {
+				console.info("RCon connection closed");
 				ws.close();
 			});
 		},
@@ -60,6 +66,7 @@ Bun.serve({
 			ws.send(JSON.stringify(response));
 		},
 		close: (ws) => {
+			console.info("WebSocket closed, closing RCon connection");
 			ws.data.rcon.end();
 		},
 	},

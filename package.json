@@ -1,0 +1,19 @@
+{
+	"name": "minecraft-websocket-rcon",
+	"module": "index.ts",
+	"type": "module",
+	"private": true,
+	"devDependencies": {
+		"@biomejs/biome": "2.3.8",
+		"typescript": "^5",
+		"@types/bun": "latest"
+	},
+	"scripts": {
+		"dev": "bun run --watch ./index.ts",
+		"playground": "bun run --watch ./playground.ts",
+		"lint": "biome check --fix"
+	},
+	"dependencies": {
+		"rcon-client": "^4.2.5"
+	}
+}
